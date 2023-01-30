@@ -7,21 +7,27 @@ import java.util.Scanner;
 
 public class HttpImageStatusCli {
     public void askStatus() {
-        System.out.println("Enter HTTP status code:");
+        System.out.println("Enter 'exit' when you want to stop the program. \nEnter HTTP status code:");
 
-        Scanner scanner = new Scanner(System.in);
-        String inputNumber = scanner.nextLine();
+        while(true) {
+            Scanner scanner = new Scanner(System.in);
+            String inputNumber = scanner.nextLine();
 
-        HttpStatusImageDownloader downloader = new HttpStatusImageDownloader();
+            HttpStatusImageDownloader downloader = new HttpStatusImageDownloader();
 
-        if (isValidInput(inputNumber)) {
-            try {
-                downloader.downloadStatusImage(Integer.parseInt(inputNumber));
-            } catch (IOException | InterruptedException ex) {
-                ex.printStackTrace();
+            if (inputNumber.equals("exit")) {
+                return;
             }
-        } else {
-            System.out.println("Invalid number! Please enter valid number.");
+
+            if (isValidInput(inputNumber)) {
+                    try {
+                        downloader.downloadStatusImage(Integer.parseInt(inputNumber));
+                    } catch (IOException | InterruptedException ex) {
+                        ex.printStackTrace();
+                    }
+                } else{
+                    System.out.println("Invalid input! Please enter valid number.");
+                }
         }
     }
 

@@ -26,6 +26,7 @@ public class HttpStatusImageDownloader {
 
         try(InputStream in = new URL(imageUrl).openStream()) {
             Files.copy(in, Paths.get(String.valueOf(file)));
+            System.out.println("File with code " + code + " successfully download.");
         }
     }
 }
