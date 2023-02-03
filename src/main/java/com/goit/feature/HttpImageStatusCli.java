@@ -1,6 +1,7 @@
 package com.goit.feature;
 
 import com.goit.feature.downloader.HttpStatusImageDownloader;
+import com.goit.feature.exception.NotFoundException;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -20,14 +21,14 @@ public class HttpImageStatusCli {
             }
 
             if (isValidInput(inputNumber)) {
-                    try {
-                        downloader.downloadStatusImage(Integer.parseInt(inputNumber));
-                    } catch (IOException | InterruptedException ex) {
-                        ex.printStackTrace();
-                    }
-                } else{
-                    System.out.println("Invalid input! Please enter valid number.");
+                try {
+                    downloader.downloadStatusImage(Integer.parseInt(inputNumber));
+                } catch (IOException | InterruptedException | NotFoundException ex) {
+                    System.out.println(ex.getMessage());
                 }
+            } else {
+                System.out.println("Invalid input! Please enter valid number.");
+            }
         }
     }
 
